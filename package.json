@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@iconify/json": "^2.2.225",
+    "@netlify/functions": "^2.8.1",
     "@supabase/supabase-js": "^2.44.2",
     "@vueuse/core": "^10.11.0",
     "pinia": "^2.1.7",
