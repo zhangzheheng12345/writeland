@@ -21,14 +21,14 @@ onMounted(() => {
 <template>
   <div class="flex flex-column items-center">
     <button @click="refresh">Refresh</button>
-    <button @click="router.push('/editor/')">Add Draft</button>
+    <button @click="router.push('/add-draft')">Add Draft</button>
     <li class="slide-enter-content">
       <ul
         v-for="item in draftsStore.drafts"
         class="border-solid border-2px border-deep-gray rounded-8px margin-8px"
       >
         <a
-          :href="`/drafts/${item.title}`"
+          :href="`/editor/${item.title}`"
           class="text-my-blue text-center w-full"
         >
           {{ item.title }}
