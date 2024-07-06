@@ -35,7 +35,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/draft/:title',
+    path: '/editor/:title',
     name: 'editor',
     component: Editor
   },
