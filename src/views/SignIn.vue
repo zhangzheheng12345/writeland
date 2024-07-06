@@ -11,7 +11,7 @@ const router = useRouter()
 const submit = async () => {
   console.log(`fetching anon key from: ${BACKEND_URL}/${passkey.value}`)
   const res = await fetch(`${BACKEND_URL}/${passkey.value}`)
-  const anon = await res.json()?.anon as string
+  const anon = (await res.json())?.anon as string
   if (anon === 'Wrong Passkey') passState.value = 'wrong'
   else {
     anonKey.value = anon
