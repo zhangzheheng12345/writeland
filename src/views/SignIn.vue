@@ -9,8 +9,8 @@ const passState = ref<'none' | 'pass' | 'wrong'>('none')
 const router = useRouter()
 
 const submit = async () => {
-  const res = await fetch(`${BACKEND_URL}/?passkey=${passkey.value}`)
-  const anon = await res.json()
+  const res = await fetch(`${BACKEND_URL}/${passkey.value}`)
+  const anon = await res.json()?.anon as string
   if (anon === 'Wrong Passkey') passState.value = 'wrong'
   else {
     anonKey.value = anon
