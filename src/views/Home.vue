@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { anonKey } from '@/logics/auth'
-import { createClient } from '@supabase/supabase-js'
+import { genClient } from '@/logics/auth'
 import { useRouter } from 'vue-router'
-import { DB_URL } from '@/config'
 import { useDraftsStore } from '@/logics/drafts'
 
 const router = useRouter()
 
-const supabase = createClient(DB_URL, anonKey.value)
+const supabase = genClient()
 const draftsStore = useDraftsStore()
 
 const refresh = () => {

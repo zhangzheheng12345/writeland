@@ -32,9 +32,12 @@ export const useDraftsStore = defineStore('drafts-store', () => {
         return
       }
     },
-    removeDraft: async (supabaseClient:SupabaseClient, title: string) => {
+    removeDraft: async (supabaseClient: SupabaseClient, title: string) => {
       drafts.value = drafts.value.filter((draft) => draft.title !== title)
-      const { error } = await supabaseClient.from(DB_TABLE_NAME).delete().eq('title', title)
+      const { error } = await supabaseClient
+        .from(DB_TABLE_NAME)
+        .delete()
+        .eq('title', title)
     },
     updateDraft: async (supabseClient: SupabaseClient, draft: Draft) => {
       const index = drafts.value.findIndex((d) => d.title === draft.title)
@@ -43,7 +46,10 @@ export const useDraftsStore = defineStore('drafts-store', () => {
         return
       }
       drafts.value[index] = draft
-      supabseClient.from(DB_TABLE_NAME).update({content: draft.content}).eq('title', draft.title)
+      supabseClient
+        .from(DB_TABLE_NAME)
+        .update({ content: draft.content })
+        .eq('title', draft.title)
     }
   }
 })
