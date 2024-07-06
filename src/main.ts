@@ -8,6 +8,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import App from '@/App.vue'
 import Home from '@/views/Home.vue'
 import Editor from '@/views/Editor.vue'
+import SignIn from '@/views/SignIn.vue'
 
 import { anonKey } from '@/logics/auth'
 
@@ -23,12 +24,17 @@ const routes = [
     }
   },
   {
+    path: '/sign-in',
+    name: 'sign-in',
+    component: SignIn
+  },
+  {
     path: '/home',
     name: 'home',
     component: Home
   },
   {
-    path: '/draft/:id',
+    path: '/draft/:title',
     name: 'editor',
     component: Editor
   }

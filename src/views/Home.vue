@@ -19,7 +19,9 @@ const refresh = () => {
   <button @click="refresh">Refresh</button>
   <li class="slide-enter-content">
     <ul v-for="item in draftsStore.drafts">
-      <a :href="`/drafts/${ item.id }`" class="text-my-blue">{{ item.title }}</a>
+      <a :href="`/drafts/${item.title}`" class="text-my-blue">{{
+        item.title
+      }}</a>
     </ul>
   </li>
 </template>
