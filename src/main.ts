@@ -9,6 +9,7 @@ import App from '@/App.vue'
 import Home from '@/views/Home.vue'
 import Editor from '@/views/Editor.vue'
 import SignIn from '@/views/SignIn.vue'
+import AddDraft from '@/views/AddDraft.vue'
 
 import { anonKey } from '@/logics/auth'
 
@@ -37,6 +38,11 @@ const routes = [
     path: '/draft/:title',
     name: 'editor',
     component: Editor
+  },
+  {
+    path: '/add-draft',
+    name: 'add-draft',
+    component: AddDraft
   }
 ]
 

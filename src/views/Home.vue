@@ -21,6 +21,7 @@ onMounted(() => {
 <template>
   <div class="flex flex-column items-center">
     <button @click="refresh">Refresh</button>
+    <button @click="router.push('/editor/')">Add Draft</button>
     <li class="slide-enter-content">
       <ul
         v-for="item in draftsStore.drafts"
