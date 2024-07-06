@@ -3,5 +3,5 @@ import { RouterView } from 'vue-router'
 </script>
 
 <template>
-  <main><RouterView /></main>
+  <main class="padding-10px max-w-800px ma"><RouterView /></main>
 </template>

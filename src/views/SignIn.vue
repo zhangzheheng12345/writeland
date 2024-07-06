@@ -21,7 +21,7 @@ const submit = async () => {
 </script>
 
 <template>
-  <div class="flex flex-column items-center justify-center h-screen">
+  <div class="flex flex-col items-center justify-center h-screen">
     <input type="text" v-model="passkey" />
     <button @click="submit">Sign In</button>
   </div>
