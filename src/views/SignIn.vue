@@ -9,6 +9,7 @@ const passState = ref<'none' | 'pass' | 'wrong'>('none')
 const router = useRouter()
 
 const submit = async () => {
+  console.log(`fetching anon key from: ${BACKEND_URL}/${passkey.value}`)
   const res = await fetch(`${BACKEND_URL}/${passkey.value}`)
   const anon = await res.json()?.anon as string
   if (anon === 'Wrong Passkey') passState.value = 'wrong'
@@ -22,6 +23,8 @@ const submit = async () => {
 </script>
 
 <template>
-  <input v-model="passkey" />
-  <button @click="submit">Sign In</button>
+  <div class="flex items-center justify-center h-screen">
+    <input type="text" v-model="passkey" />
+    <button @click="submit">Sign In</button>
+  </div>
 </template>
