@@ -14,7 +14,7 @@ const refreshLoading = ref(false)
 const refresh = async () => {
   refreshLoading.value = true
   await draftsStore.refreshDraft(supabase)
-  refreshLoading.vaue = false
+  refreshLoading.value = false
 }
 const remove = (title: string) => {
   draftsStore.removeDraft(supabase, title)
@@ -29,7 +29,10 @@ onMounted(() => {
   <div class="flex flex-col items-center">
     <div class="flex items-center">
       <button @click="refresh" class="flex">
-        <span class="i-charm:refresh" :class="refreshLoading ? 'animate-spin' : ''"></span>
+        <span
+          class="i-charm:refresh"
+          :class="refreshLoading ? 'animate-spin' : ''"
+        ></span>
       </button>
       <button @click="router.push('/add-draft')" class="flex">
         <span class="i-charm:plus"></span>
