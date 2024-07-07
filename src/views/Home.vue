@@ -25,7 +25,6 @@ onMounted(() => {
     <li class="slide-enter-content">
       <ul
         v-for="item in draftsStore.drafts"
-        class="border-solid border-2px border-deep-gray rounded-8px margin-8px"
       >
         <button
           @click="router.push({path: '/editor/' + item.title})"

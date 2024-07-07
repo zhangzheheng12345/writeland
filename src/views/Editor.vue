@@ -30,6 +30,6 @@ const save = () =>
   <div class="flex flex-col items-center">
     <button @click="save">Save</button>
     <h1>{{ title }}</h1>
-    <textarea v-model="content" class="h-screen"></textarea>
+    <textarea v-model="content" class="h-screen w-full"></textarea>
   </div>
 </template>
