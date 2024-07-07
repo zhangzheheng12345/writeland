@@ -19,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-column items-center">
+  <div class="flex flex-col items-center">
     <button @click="refresh">Refresh</button>
     <button @click="router.push('/add-draft')">Add Draft</button>
     <li class="slide-enter-content">
