@@ -17,7 +17,6 @@ const submit = () => {
 
 <template>
   <div class="flex flex-col items-center justify-center h-screen">
-    <h1 class="text-xl">Writeland</h1>
     <input type="text" v-model="title" />
     <button @click="submit">Submit</button>
   </div>

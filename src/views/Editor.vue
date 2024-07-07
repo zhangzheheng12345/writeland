@@ -27,11 +27,11 @@ const save = () =>
 </script>
 
 <template>
-  <div class="flex flex-col items-end">
+  <div class="flex flex-col">
     <button @click="save" class="flex">
       <span class="i-charm:floppy-disk"></span>
     </button>
-    <h1 class="text-lg">{{ title }}</h1>
+    <h1 class="text-1.2em">{{ title }}</h1>
     <textarea v-model="content" class="h-screen w-full"></textarea>
   </div>
 </template>

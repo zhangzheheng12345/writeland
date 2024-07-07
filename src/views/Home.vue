@@ -27,6 +27,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col items-center">
+    <h1 class="text-1.3em">Writeland</h1>
     <div class="flex items-center">
       <button @click="refresh" class="flex">
         <span
