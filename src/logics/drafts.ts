@@ -13,6 +13,11 @@ export const useDraftsStore = defineStore('drafts-store', () => {
 
   return {
     drafts,
+    getDraft: (title: string) =>
+      drafts.value.find((draft) => draft?.title === title) || {
+        title: '404 Not Found',
+        content: ''
+      },
     refreshDraft: async (supabaseClient: SupabaseClient) => {
       const { data, error } = await supabaseClient.from(DB_TABLE_NAME).select()
       if (error != null) {

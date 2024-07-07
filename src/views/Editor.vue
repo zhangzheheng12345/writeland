@@ -11,26 +11,42 @@ const route = useRoute()
 const title = route.params.title as unknown as string
 
 const draftsStore = useDraftsStore()
-const draft: Draft = draftsStore.drafts.find(
-  (draft) => draft?.title === title
-) || {
-  title: '404 Not Found',
-  content: ''
-}
+const draft = draftsStore.getDraft(title)
 const content = ref(draft.content)
 
-const save = () =>
-  draftsStore.updateDraft(supabase, {
+const savingLoading = ref(false)
+const refreshLoading = ref(false)
+
+const refresh = async () => {
+  refreshLoading.value = true
+  await draftsStore.refreshDraft(supabase)
+  content.value = draftsStore.getDraft(title).content
+  refreshLoading.value = false
+}
+const save = async () => {
+  savingLoading.value = true
+  await draftsStore.updateDraft(supabase, {
     title: draft.title,
     content: content.value
   })
+  savingLoading.value = false
+}
 </script>
 
 <template>
   <div class="flex flex-col">
-    <button @click="save" class="flex">
-      <span class="i-charm:floppy-disk"></span>
-    </button>
+    <div class="flex items-center">
+      <button @click="save" class="flex">
+        <span class="i-charm:floppy-disk" v-if="!savingLoading"></span>
+        <span class="i-charm:rotate-clockwise" v-else></span>
+      </button>
+      <button @click="refresh" class="flex">
+        <span
+          class="i-charm:refresh transition-200"
+          :class="refreshLoading ? 'animate-spin' : ''"
+        ></span>
+      </button>
+    </div>
     <h1 class="text-1.65em mb-12px">{{ title }}</h1>
     <textarea v-model="content" class="h-screen w-full"></textarea>
   </div>

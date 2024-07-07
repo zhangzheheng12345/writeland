@@ -10,14 +10,17 @@ const supabase = genClient()
 const draftsStore = useDraftsStore()
 
 const refreshLoading = ref(false)
+const removeLoading = ref(false)
 
 const refresh = async () => {
   refreshLoading.value = true
   await draftsStore.refreshDraft(supabase)
   refreshLoading.value = false
 }
-const remove = (title: string) => {
+const remove = async (title: string) => {
+  removeLoading.value = true
   draftsStore.removeDraft(supabase, title)
+  removeLoading.value = false
 }
 
 onMounted(() => {
@@ -31,7 +34,7 @@ onMounted(() => {
     <div class="flex items-center">
       <button @click="refresh" class="flex">
         <span
-          class="i-charm:refresh"
+          class="i-charm:refresh transition-200"
           :class="refreshLoading ? 'animate-spin' : ''"
         ></span>
       </button>
@@ -40,15 +43,18 @@ onMounted(() => {
       </button>
     </div>
     <li class="slide-enter-content">
-      <ul v-for="item in draftsStore.drafts" class="flex items-center">
+      <ul
+        v-for="item in draftsStore.drafts"
+        class="flex items-center justify-between min-w-100px"
+      >
         <button
           @click="router.push({ path: '/editor/' + item.title })"
-          class="text-my-blue ml-12px flex"
+          class="text-my-blue flex hover:decoration-solid"
         >
           {{ item.title }}
         </button>
         <button @click="remove(item.title)" class="flex">
-          <span class="i-charm:bin"></span>
+          <span class="i-charm:bin text-my-red" v-if="!removeLoading"></span>
         </button>
       </ul>
     </li>

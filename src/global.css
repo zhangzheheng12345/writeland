@@ -45,6 +45,7 @@ textarea {
 
 textarea {
   line-height: 1.625;
+  padding: 10px 12px;
 }
 
 button {
