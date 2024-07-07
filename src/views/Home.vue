@@ -27,12 +27,12 @@ onMounted(() => {
         v-for="item in draftsStore.drafts"
         class="border-solid border-2px border-deep-gray rounded-8px margin-8px"
       >
-        <a
-          :href="`/editor/${item.title}`"
+        <button
+          @click="router.push({path: '/editor/' + item.title})"
           class="text-my-blue text-center w-full"
         >
           {{ item.title }}
-        </a>
+        </button>
       </ul>
     </li>
   </div>
