@@ -27,9 +27,9 @@ const save = () =>
 </script>
 
 <template>
-  <div class="flex flex-col items-center">
+  <div class="flex flex-col items-end">
     <button @click="save">Save</button>
-    <h1>{{ title }}</h1>
+    <h1 class="text-lg">{{ title }}</h1>
     <textarea v-model="content" class="h-screen w-full"></textarea>
   </div>
 </template>

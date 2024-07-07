@@ -12,6 +12,9 @@ const draftsStore = useDraftsStore()
 const refresh = () => {
   draftsStore.refreshDraft(supabase)
 }
+const remove = (title: string) => {
+  draftsStore.removeDraft(supabase, title)
+}
 
 onMounted(() => {
   if (draftsStore.drafts.length === 0) draftsStore.refreshDraft(supabase)
@@ -20,17 +23,22 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col items-center">
-    <button @click="refresh">Refresh</button>
-    <button @click="router.push('/add-draft')">Add Draft</button>
+    <div class="flex items-center">
+      <button @click="refresh" class="flex">
+        <span class="i-charm:refresh"></span>
+      </button>
+      <button @click="router.push('/add-draft')">Add Draft</button>
+    </div>
     <li class="slide-enter-content">
-      <ul
-        v-for="item in draftsStore.drafts"
-      >
+      <ul v-for="item in draftsStore.drafts" class="flex items-center">
         <button
-          @click="router.push({path: '/editor/' + item.title})"
-          class="text-my-blue text-center w-full"
+          @click="router.push({ path: '/editor/' + item.title })"
+          class="text-my-blue ml-12px"
         >
           {{ item.title }}
+        </button>
+        <button @click="remove(item.title)" class="flex">
+          <span class="i-charm:bin"></span>
         </button>
       </ul>
     </li>

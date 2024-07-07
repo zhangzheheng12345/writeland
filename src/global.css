@@ -47,21 +47,21 @@ body {
   background-color: var(--light-gray);
 }
 
-input {
+input,
+textarea {
   border: 2px solid var(--deep-gray);
-  border-radius: 8px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  border-radius: 7px;
+  padding: 6px;
   margin: 5px;
 }
 
+textarea {
+  line-height: 1.625;
+}
+
 button {
-  border: 2px solid var(--deep-gray);
-  border-radius: 8px;
-  padding: 6px;
-  padding-left: 7px;
-  padding-right: 7px;
-  font-size: 1.02em;
+  padding: 6px 7px;
+  font-size: 1.06em;
   margin: 5px;
 }
 
