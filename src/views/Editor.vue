@@ -31,7 +31,7 @@ const save = () =>
     <button @click="save" class="flex">
       <span class="i-charm:floppy-disk"></span>
     </button>
-    <h1 class="text-1.2em">{{ title }}</h1>
+    <h1 class="text-1.65em mb-12px">{{ title }}</h1>
     <textarea v-model="content" class="h-screen w-full"></textarea>
   </div>
 </template>
