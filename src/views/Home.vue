@@ -31,7 +31,7 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col items-center">
-    <h1 class="text-1.7em m-15px">WRITELAND</h1>
+    <h1 class="text-1.75em m-15px">WRITELAND</h1>
     <div class="flex items-center mb-12px">
       <button @click="refresh" class="flex">
         <span
