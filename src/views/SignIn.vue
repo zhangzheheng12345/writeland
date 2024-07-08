@@ -26,7 +26,7 @@ const submit = async () => {
     <input type="password" v-model="passkey" />
     <button @click="submit" class="flex items-center">
       <span>SIGN IN</span>
-      <span class="i-charm:chevrons-right transition-200"></span>
+      <span class="i-charm:chevrons-right transition-200 ml-3px"></span>
     </button>
   </div>
 </template>

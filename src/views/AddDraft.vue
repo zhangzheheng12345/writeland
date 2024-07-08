@@ -20,7 +20,7 @@ const submit = () => {
     <input type="text" v-model="title" />
     <button @click="submit" class="flex items-center">
       <span>SUBMIT</span>
-      <span class="i-charm:chevrons-right transition-200"></span>
+      <span class="i-charm:chevrons-right transition-200 ml-3px"></span>
     </button>
   </div>
 </template>

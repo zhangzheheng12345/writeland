@@ -67,7 +67,7 @@ const cancelUpdatingTitle = () => {
       </button>
     </div>
     <button
-      class="text-1.65em m-0 p-0 mb-12px ml-12px"
+      class="text-1.65em text-left m-0 p-0 mb-15px ml-12px"
       v-if="!editingTitle"
       @dblclick="editingTitle = true"
     >
