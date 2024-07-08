@@ -11,6 +11,7 @@ const draftsStore = useDraftsStore()
 
 const refreshLoading = ref(false)
 const removeLoading = ref(false)
+const removeConfirmIndex = ref(-1)
 
 const refresh = async () => {
   refreshLoading.value = true
@@ -44,7 +45,7 @@ onMounted(() => {
     </div>
     <li class="slide-enter-content">
       <ul
-        v-for="item in draftsStore.drafts"
+        v-for="(item, index) in draftsStore.drafts"
         class="flex items-center justify-between min-w-350px"
       >
         <button
@@ -53,12 +54,25 @@ onMounted(() => {
         >
           {{ item.title }}
         </button>
-        <button @click="remove(item.title)" class="flex">
-          <span
-            class="i-charm:bin text-my-red"
-            :class="removeLoading ? 'animate-bounce' : ''"
-          ></span>
+        <button
+          @click="removeConfirmIndex = index"
+          class="flex"
+          v-if="index !== removeConfirmIndex"
+        >
+          <span class="i-charm:bin text-my-red"></span>
         </button>
+        <div v-else>
+          <button class="flex" @click="removeConfirmIndex = -1">
+            <span class="i-charm:circle-cross"></span>
+          </button>
+          <button
+            class="flex"
+            @click="remove(item.title)"
+            :class="removeLoading ? 'animate-bounce' : ''"
+          >
+            <span class="i-charm:tick text-my-red"></span>
+          </button>
+        </div>
       </ul>
     </li>
   </div>
