@@ -43,7 +43,7 @@ const updateTitle = async () => {
   router.push(`/editor/${newTitle}`)
 }
 const cancelUpdatingTitle = () => {
-  updatingTitle.value = false
+  editingTitle.value = false
   newTitle.value = draft.title
 }
 
@@ -76,7 +76,7 @@ onBeforeRouteLeave(async () => await save())
     >
       # {{ title }}
     </button>
-    <div class="flex justify-stretch" v-else>
+    <div class="flex justify-stretch items-center w-full" v-else>
       <input
         type="text"
         v-model="newTitle"
