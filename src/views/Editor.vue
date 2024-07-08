@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router'
 import { useDraftsStore } from '@/logics/drafts'
 import { genClient } from '@/logics/auth'
 import type { Draft } from '@/logics/drafts'
@@ -25,6 +25,7 @@ const refresh = async () => {
   refreshLoading.value = false
 }
 const save = async () => {
+  if (draft.content === content.value) return
   savingLoading.value = true
   await draftsStore.updateDraftContent(supabase, {
     title: draft.title,
@@ -45,6 +46,8 @@ const cancelUpdatingTitle = () => {
   updatingTitle.value = false
   newTitle.value = draft.title
 }
+
+onBeforeRouteLeave(async () => await save())
 </script>
 
 <template>

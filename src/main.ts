@@ -18,9 +18,8 @@ const routes = [
     path: '/',
     name: 'entry',
     redirect: () => {
-      if (anonKey.value.length === 0) {
-        return { path: '/sign-in' }
-      }
+      if (anonKey.value.length === 0) return { path: '/sign-in' }
+
       return { path: '/home' }
     }
   },
@@ -49,6 +48,9 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+router.beforeEach((to, from) => {
+  if (anonKey.value.length === 0) return { path: '/sign-in' }
 })
 
 const app = createApp(App)
