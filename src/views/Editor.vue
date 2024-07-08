@@ -69,7 +69,7 @@ const cancelUpdatingTitle = () => {
     <button
       class="text-1.65em m-0 p-0 mb-12px ml-12px"
       v-if="!editingTitle"
-      @dbclick="editingTitle = true"
+      @dblclick="editingTitle = true"
     >
       # {{ title }}
     </button>
@@ -79,6 +79,7 @@ const cancelUpdatingTitle = () => {
         v-model="newTitle"
         class="wa"
         :class="updatingTitle ? 'animate-bounce' : ''"
+        @keyup.enter="updateTitle"
       />
       <button class="flex" @click="cancelUpdatingTitle">
         <span class="i-charm:circle-cross"></span>

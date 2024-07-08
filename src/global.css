@@ -45,6 +45,7 @@ input {
 textarea {
   line-height: 1.625;
   padding: 8px;
+  border-width: 0px;
 }
 
 button {
