@@ -26,11 +26,24 @@ const refresh = async () => {
 }
 const save = async () => {
   savingLoading.value = true
-  await draftsStore.updateDraft(supabase, {
+  await draftsStore.updateDraftContent(supabase, {
     title: draft.title,
     content: content.value
   })
   savingLoading.value = false
+}
+
+const editingTitle = ref(false)
+const updatingTitle = ref(false)
+const newTitle = ref(draft.title)
+const updateTitle = async () => {
+  updatingTitle.value = true
+  await draftsStore.updateDraftTitle(supabase, draft.title, newTitle.value)
+  router.push(`/editor/${newTitle}`)
+}
+const cancelUpdatingTitle = () => {
+  updatingTitle.value = false
+  newTitle.value = draft.title
 }
 </script>
 
@@ -53,7 +66,24 @@ const save = async () => {
         ></span>
       </button>
     </div>
-    <h1 class="text-1.65em mb-12px ml-12px">{{ title }}</h1>
+    <button
+      class="text-1.65em m-0 p-0 mb-12px ml-12px"
+      v-if="!editingTitle"
+      @dbclick="editingTitle = true"
+    >
+      # {{ title }}
+    </button>
+    <div class="flex justify-stretch" v-else>
+      <input
+        type="text"
+        v-model="newTitle"
+        class="wa"
+        :class="updatingTitle ? 'animate-bounce' : ''"
+      />
+      <button class="flex" @click="cancelUpdatingTitle">
+        <span class="i-charm:circle-cross"></span>
+      </button>
+    </div>
     <textarea v-model="content" class="h-screen w-full"></textarea>
   </div>
 </template>

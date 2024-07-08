@@ -49,7 +49,7 @@ onMounted(() => {
       >
         <button
           @click="router.push({ path: '/editor/' + item.title })"
-          class="text-my-blue flex hover:decoration-solid"
+          class="text-my-blue flex hover:decoration-underline"
         >
           {{ item.title }}
         </button>
