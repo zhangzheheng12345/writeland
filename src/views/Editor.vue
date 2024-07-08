@@ -76,11 +76,11 @@ onBeforeRouteLeave(async () => await save())
     >
       # {{ title }}
     </button>
-    <div class="flex w-75% items-center w-full" v-else>
+    <div class="flex items-center w-full" v-else>
       <input
         type="text"
         v-model="newTitle"
-        class="wa p-6px text-1.4em"
+        class="wa py-5px px-7px text-1.4em w-75%"
         :class="updatingTitle ? 'animate-bounce' : ''"
         @keyup.enter="updateTitle"
       />
