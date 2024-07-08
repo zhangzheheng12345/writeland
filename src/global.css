@@ -35,8 +35,7 @@ body {
   background-color: var(--light-gray);
 }
 
-input,
-textarea {
+input {
   border: 2px solid var(--deep-gray);
   border-radius: 7px;
   padding: 8px;
@@ -45,7 +44,7 @@ textarea {
 
 textarea {
   line-height: 1.625;
-  padding: 10px 12px;
+  padding: 8px;
 }
 
 button {

@@ -18,6 +18,15 @@ const submit = () => {
 <template>
   <div class="flex flex-col items-center justify-center h-screen">
     <input type="text" v-model="title" />
-    <button @click="submit">Submit</button>
+    <button @click="submit" class="flex items-center">
+      <span>SUBMIT</span>
+      <span class="i-charm:chevrons-right transition-200"></span>
+    </button>
   </div>
 </template>
+
+<style scoped>
+button:hover .i-charm\:chevrons-right {
+  transform: translateX(4px);
+}
+</style>

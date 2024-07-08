@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useDraftsStore } from '@/logics/drafts'
 import { genClient } from '@/logics/auth'
 import type { Draft } from '@/logics/drafts'
@@ -8,6 +8,7 @@ import { ref } from 'vue'
 const supabase = genClient()
 
 const route = useRoute()
+const router = useRouter()
 const title = route.params.title as unknown as string
 
 const draftsStore = useDraftsStore()
@@ -36,9 +37,14 @@ const save = async () => {
 <template>
   <div class="flex flex-col">
     <div class="flex items-center">
+      <button @click="router.push('/home')" class="flex">
+        <span class="i-charm:cards"></span>
+      </button>
       <button @click="save" class="flex">
-        <span class="i-charm:floppy-disk" v-if="!savingLoading"></span>
-        <span class="i-charm:rotate-clockwise" v-else></span>
+        <span
+          class="i-charm:floppy-disk"
+          :class="savingLoading ? 'animate-bounce' : ''"
+        ></span>
       </button>
       <button @click="refresh" class="flex">
         <span
@@ -47,7 +53,7 @@ const save = async () => {
         ></span>
       </button>
     </div>
-    <h1 class="text-1.65em mb-12px">{{ title }}</h1>
+    <h1 class="text-1.65em mb-12px ml-12px">{{ title }}</h1>
     <textarea v-model="content" class="h-screen w-full"></textarea>
   </div>
 </template>

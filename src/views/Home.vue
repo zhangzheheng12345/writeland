@@ -30,8 +30,8 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col items-center">
-    <h1 class="text-1.7em m-15px">Writeland</h1>
-    <div class="flex items-center">
+    <h1 class="text-1.7em m-15px">WRITELAND</h1>
+    <div class="flex items-center mb-12px">
       <button @click="refresh" class="flex">
         <span
           class="i-charm:refresh transition-200"
@@ -45,7 +45,7 @@ onMounted(() => {
     <li class="slide-enter-content">
       <ul
         v-for="item in draftsStore.drafts"
-        class="flex items-center justify-between min-w-100px"
+        class="flex items-center justify-between min-w-350px"
       >
         <button
           @click="router.push({ path: '/editor/' + item.title })"
@@ -54,7 +54,10 @@ onMounted(() => {
           {{ item.title }}
         </button>
         <button @click="remove(item.title)" class="flex">
-          <span class="i-charm:bin text-my-red" v-if="!removeLoading"></span>
+          <span
+            class="i-charm:bin text-my-red"
+            :class="removeLoading ? 'animate-bounce' : ''"
+          ></span>
         </button>
       </ul>
     </li>
