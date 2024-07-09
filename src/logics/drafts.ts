@@ -32,10 +32,7 @@ export const useDraftsStore = defineStore('drafts-store', () => {
         title,
         content: ''
       })
-      if (error != null) {
-        alert('CREATING FAILED')
-        return
-      }
+      if (error != null) alert('CREATING FAILED')
     },
     removeDraft: async (supabaseClient: SupabaseClient, title: string) => {
       drafts.value = drafts.value.filter((draft) => draft.title !== title)
@@ -43,18 +40,23 @@ export const useDraftsStore = defineStore('drafts-store', () => {
         .from(DB_TABLE_NAME)
         .delete()
         .eq('title', title)
+      if (error != null) alert('DELETING FAILED')
     },
-    updateDraftContent: async (supabseClient: SupabaseClient, draft: Draft) => {
+    updateDraftContent: async (
+      supabaseClient: SupabaseClient,
+      draft: Draft
+    ) => {
       const index = drafts.value.findIndex((d) => d.title === draft.title)
       if (index === -1) {
         alert('UPDATING CONTENT FAILED')
         return
       }
       drafts.value[index] = draft
-      supabseClient
+      const { error } = await supabaseClient
         .from(DB_TABLE_NAME)
         .update({ content: draft.content })
         .eq('title', draft.title)
+      if (error != null) alert('UPDATING CONTENT FAILED')
     },
     updateDraftTitle: async (
       supabaseClient: SupabaseClient,
@@ -67,10 +69,11 @@ export const useDraftsStore = defineStore('drafts-store', () => {
         return
       }
       drafts.value[index].title = newTitle
-      supabaseClient
+      const { error } = await supabaseClient
         .from(DB_TABLE_NAME)
         .update({ title: newTitle })
         .eq('title', orginalTitle)
+      if (error != null) alert('UPDATING TITLE FAILED')
     }
   }
 })

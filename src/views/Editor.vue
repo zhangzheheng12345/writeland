@@ -25,7 +25,6 @@ const refresh = async () => {
   refreshLoading.value = false
 }
 const save = async () => {
-  if (draft.content === content.value) return
   savingLoading.value = true
   await draftsStore.updateDraftContent(supabase, {
     title: draft.title,
@@ -47,7 +46,9 @@ const cancelUpdatingTitle = () => {
   newTitle.value = draft.title
 }
 
-onBeforeRouteLeave(async () => await save())
+onBeforeRouteLeave(async () => {
+  if (draft.title === newTitle.value) await save()
+})
 </script>
 
 <template>
