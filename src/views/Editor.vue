@@ -3,7 +3,7 @@ import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router'
 import { useDraftsStore } from '@/logics/drafts'
 import { genClient } from '@/logics/auth'
 import type { Draft } from '@/logics/drafts'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const supabase = genClient()
 
@@ -46,6 +46,13 @@ const cancelUpdatingTitle = () => {
   newTitle.value = draft.title
 }
 
+const paraNum = computed(() => content.value.split('\n').filter((p) => p.length > 0).length)
+const charNumTotal = computed(() => content.value.length)
+const charNumNoPunc = computed(() => {
+  const punc = '.,?!;:()[]{}""\'\'$。，？！；：（）【】｛｝—、“”’‘¥'.split()
+  return content.value.split('').filter((c) => !punc.includes(c)).length
+})
+  
 onBeforeRouteLeave(async () => {
   if (draft.title === newTitle.value) await save()
 })
@@ -90,6 +97,7 @@ onBeforeRouteLeave(async () => {
       </button>
     </div>
     <textarea v-model="content" class="h-90vh w-full"></textarea>
+    <div>{{paraNum}} {{charNumTotal}} {{charNumNoPunc}}<div>
   </div>
 </template>
 
