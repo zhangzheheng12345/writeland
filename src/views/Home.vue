@@ -3,6 +3,7 @@ import { genClient } from '@/logics/auth'
 import { useRouter } from 'vue-router'
 import { useDraftsStore } from '@/logics/drafts'
 import { onMounted, ref } from 'vue'
+import { anonKey } from '@/logics/auth'
 
 const router = useRouter()
 
@@ -23,6 +24,11 @@ const remove = async (title: string) => {
   draftsStore.removeDraft(supabase, title)
   removeLoading.value = false
 }
+const signOut = () => {
+  anonKey.value = ''
+  draftsStore.drafts = []
+  router.push('/sign-in')
+}
 
 onMounted(() => {
   if (draftsStore.drafts.length === 0) draftsStore.refreshDraft(supabase)
@@ -41,6 +47,9 @@ onMounted(() => {
       </button>
       <button @click="router.push('/add-draft')" class="flex">
         <span class="i-charm:plus"></span>
+      </button>
+      <button @click="signOut" class="flex">
+        <span class="i-charm:sign-out"></span>
       </button>
     </div>
     <li class="slide-enter-content">
