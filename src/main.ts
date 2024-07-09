@@ -49,7 +49,8 @@ const router = createRouter({
   routes
 })
 router.beforeEach((to, from) => {
-  if (anonKey.value.length === 0 && to.name !== 'sign-in') return { path: '/sign-in' }
+  if (anonKey.value.length === 0 && to.name !== 'sign-in')
+    return { path: '/sign-in' }
 })
 
 const app = createApp(App)

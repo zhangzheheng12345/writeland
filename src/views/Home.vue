@@ -21,7 +21,8 @@ const refresh = async () => {
 }
 const remove = async (title: string) => {
   removeLoading.value = true
-  draftsStore.removeDraft(supabase, title)
+  await draftsStore.removeDraft(supabase, title)
+  removeConfirmIndex.value = -1
   removeLoading.value = false
 }
 const signOut = () => {
