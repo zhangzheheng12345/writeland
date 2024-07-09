@@ -99,7 +99,7 @@ onBeforeRouteLeave(async () => {
       </button>
     </div>
     <textarea v-model="content" class="h-90vh w-full"></textarea>
-    <div>{{ paraNum }} {{ charNumTotal }} {{ charNumNoPunc }}</div>
+    <div class="mx-6px my-10px">{{ paraNum }} / {{ charNumTotal }} / {{ charNumNoPunc }}</div>
   </div>
 </template>
 
