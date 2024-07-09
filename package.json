@@ -8,7 +8,7 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build --force"
+    "check": "vue-tsc --build --force"
   },
   "dependencies": {
     "@iconify/json": "^2.2.225",
