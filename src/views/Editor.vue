@@ -70,7 +70,7 @@ onBeforeRouteLeave(async () => await save())
       </button>
     </div>
     <button
-      class="text-1.65em text-left p-0 mb-14px ml-8px"
+      class="text-1.65em text-left p-0 mb-13px mt-10px ml-8px"
       v-if="!editingTitle"
       @dblclick="editingTitle = true"
     >
@@ -80,7 +80,7 @@ onBeforeRouteLeave(async () => await save())
       <input
         type="text"
         v-model="newTitle"
-        class="wa py-5px px-7px text-1.4em w-75%"
+        class="py-5px px-7px text-1.4em w-75%"
         :class="updatingTitle ? 'animate-bounce' : ''"
         @keyup.enter="updateTitle"
       />
@@ -88,7 +88,7 @@ onBeforeRouteLeave(async () => await save())
         <span class="i-charm:circle-cross"></span>
       </button>
     </div>
-    <textarea v-model="content" class="h-screen w-full"></textarea>
+    <textarea v-model="content" class="h-90vh w-full"></textarea>
   </div>
 </template>
 
