@@ -63,24 +63,24 @@ onBeforeRouteLeave(async () => {
 <template>
   <div class="flex flex-col">
     <div class="flex items-center">
-      <button @click="router.push('/home')" class="flex">
+      <button @click="router.push('/home')" class="flex iconic">
         <span class="i-charm:cards"></span>
       </button>
-      <button @click="save" class="flex">
+      <button @click="save" class="flex iconic">
         <span
           class="i-charm:floppy-disk"
           :class="savingLoading ? 'animate-bounce' : ''"
         ></span>
       </button>
-      <button @click="refresh" class="flex">
+      <button @click="refresh" class="flex iconic">
         <span
-          class="i-charm:refresh transition-200"
+          class="i-charm:refresh"
           :class="refreshLoading ? 'animate-spin' : ''"
         ></span>
       </button>
     </div>
     <button
-      class="text-1.65em text-left p-0 mb-13px mt-10px ml-8px"
+      class="text-1.65em text-left p-0 mb-13px mt-10px ml-8px iconic"
       v-if="!editingTitle"
       @dblclick="editingTitle = true"
     >
@@ -94,11 +94,11 @@ onBeforeRouteLeave(async () => {
         :class="updatingTitle ? 'animate-bounce' : ''"
         @keyup.enter="updateTitle"
       />
-      <button class="flex" @click="cancelUpdatingTitle">
+      <button class="flex iconic" @click="cancelUpdatingTitle">
         <span class="i-charm:circle-cross"></span>
       </button>
     </div>
-    <textarea v-model="content" class="h-90vh w-full"></textarea>
+    <textarea v-model="content" class="h-85vh w-full"></textarea>
     <div class="mx-6px my-10px">
       {{ paraNum }} / {{ charNumTotal }} / {{ charNumNoPunc }}
     </div>

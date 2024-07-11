@@ -31,25 +31,23 @@ const signOut = () => {
   router.push('/sign-in')
 }
 
-onMounted(() => {
-  if (draftsStore.drafts.length === 0) draftsStore.refreshDraft(supabase)
-})
+onMounted(() => draftsStore.refreshDraft(supabase))
 </script>
 
 <template>
   <div class="flex flex-col items-center">
     <h1 class="text-1.75em m-15px">WRITELAND</h1>
     <div class="flex items-center mb-12px">
-      <button @click="refresh" class="flex">
+      <button @click="refresh" class="flex iconic">
         <span
-          class="i-charm:refresh transition-200"
+          class="i-charm:refresh"
           :class="refreshLoading ? 'animate-spin' : ''"
         ></span>
       </button>
-      <button @click="router.push('/add-draft')" class="flex">
+      <button @click="router.push('/add-draft')" class="flex iconic">
         <span class="i-charm:plus"></span>
       </button>
-      <button @click="signOut" class="flex">
+      <button @click="signOut" class="flex iconic">
         <span class="i-charm:sign-out"></span>
       </button>
     </div>
@@ -69,14 +67,14 @@ onMounted(() => {
           class="flex"
           v-if="index !== removeConfirmIndex"
         >
-          <span class="i-charm:bin text-my-red"></span>
+          <span class="i-charm:bin text-my-red iconic"></span>
         </button>
         <div v-else>
           <button class="flex" @click="removeConfirmIndex = -1">
             <span class="i-charm:circle-cross"></span>
           </button>
           <button
-            class="flex"
+            class="flex iconic"
             @click="remove(item.title)"
             :class="removeLoading ? 'animate-bounce' : ''"
           >

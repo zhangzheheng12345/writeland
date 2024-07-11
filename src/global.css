@@ -10,6 +10,10 @@
   --my-red: #db4a5d;
 }
 
+h1,h2,h3,h4,h5,h6 {
+  letter-spacing: 1px;
+}
+
 :root {
   color: var(--deep-gray);
   font-size: 1.02em;
@@ -53,6 +57,12 @@ button {
   padding: 6px 7px;
   font-size: 1.06em;
   margin: 5px;
+}
+button.iconic {
+  transition: 0.2s;
+}
+button.iconic:hover {
+  transform: translateY(-3px);
 }
 
 /* The slide-enter animation utility */
