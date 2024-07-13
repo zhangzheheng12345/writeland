@@ -38,16 +38,16 @@ onMounted(() => draftsStore.refreshDraft(supabase))
   <div class="flex flex-col items-center">
     <h1 class="text-1.75em m-15px">WRITELAND</h1>
     <div class="flex items-center mb-12px">
-      <button @click="refresh" class="flex iconic">
+      <button @click="refresh" class="flex hover-up">
         <span
           class="i-charm:refresh"
           :class="refreshLoading ? 'animate-spin' : ''"
         ></span>
       </button>
-      <button @click="router.push('/add-draft')" class="flex iconic">
+      <button @click="router.push('/add-draft')" class="flex hover-up">
         <span class="i-charm:plus"></span>
       </button>
-      <button @click="signOut" class="flex iconic">
+      <button @click="signOut" class="flex hover-up">
         <span class="i-charm:sign-out"></span>
       </button>
     </div>
@@ -67,14 +67,14 @@ onMounted(() => draftsStore.refreshDraft(supabase))
           class="flex"
           v-if="index !== removeConfirmIndex"
         >
-          <span class="i-charm:bin text-my-red iconic"></span>
+          <span class="i-charm:bin text-my-red hover-up"></span>
         </button>
         <div v-else>
-          <button class="flex iconic" @click="removeConfirmIndex = -1">
+          <button class="flex hover-up" @click="removeConfirmIndex = -1">
             <span class="i-charm:circle-cross"></span>
           </button>
           <button
-            class="flex iconic"
+            class="flex hover-up"
             @click="remove(item.title)"
             :class="removeLoading ? 'animate-bounce' : ''"
           >

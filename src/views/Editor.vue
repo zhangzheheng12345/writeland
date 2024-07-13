@@ -63,16 +63,16 @@ onBeforeRouteLeave(async () => {
 <template>
   <div class="flex flex-col">
     <div class="flex items-center">
-      <button @click="router.push('/home')" class="flex iconic">
+      <button @click="router.push('/home')" class="flex hover-up">
         <span class="i-charm:cards"></span>
       </button>
-      <button @click="save" class="flex iconic">
+      <button @click="save" class="flex hover-up">
         <span
           class="i-charm:floppy-disk"
           :class="savingLoading ? 'animate-bounce' : ''"
         ></span>
       </button>
-      <button @click="refresh" class="flex iconic">
+      <button @click="refresh" class="flex hover-up">
         <span
           class="i-charm:refresh"
           :class="refreshLoading ? 'animate-spin' : ''"
@@ -80,7 +80,7 @@ onBeforeRouteLeave(async () => {
       </button>
     </div>
     <button
-      class="text-1.65em text-left p-0 mb-13px mt-10px ml-8px iconic"
+      class="text-1.65em text-left p-0 mb-13px mt-10px ml-8px hover-up"
       v-if="!editingTitle"
       @dblclick="editingTitle = true"
     >
@@ -94,15 +94,15 @@ onBeforeRouteLeave(async () => {
         :class="updatingTitle ? 'animate-bounce' : ''"
         @keyup.enter="updateTitle"
       />
-      <button class="flex iconic" @click="cancelUpdatingTitle">
+      <button class="flex hover-up" @click="cancelUpdatingTitle">
         <span class="i-charm:circle-cross"></span>
       </button>
     </div>
     <textarea v-model="content" class="h-80vh w-full"></textarea>
     <div class="mx-6px my-10px">
-      <span class="iconic">{{ paraNum }}</span><span>/</span>
-      <span class="iconic">{{ charNumTotal }}</span><span>/</span>
-      <span class="iconic">{{ charNumNoPunc }}</span>
+      <span class="hover-up">{{ paraNum }}</span> <span>/</span>
+      <span class="hover-up">{{ charNumTotal }}</span> <span>/</span>
+      <span class="hover-up">{{ charNumNoPunc }}</span>
     </div>
   </div>
 </template>
