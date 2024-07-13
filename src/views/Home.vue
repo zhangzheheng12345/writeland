@@ -70,7 +70,7 @@ onMounted(() => draftsStore.refreshDraft(supabase))
           <span class="i-charm:bin text-my-red iconic"></span>
         </button>
         <div v-else>
-          <button class="flex" @click="removeConfirmIndex = -1">
+          <button class="flex iconic" @click="removeConfirmIndex = -1">
             <span class="i-charm:circle-cross"></span>
           </button>
           <button
