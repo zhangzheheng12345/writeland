@@ -100,9 +100,7 @@ onBeforeRouteLeave(async () => {
     </div>
     <textarea v-model="content" class="h-80vh w-full"></textarea>
     <div class="mx-6px my-10px">
-      <span class="hover-up">{{ paraNum }}</span> <span>/</span>
-      <span class="hover-up">{{ charNumTotal }}</span> <span>/</span>
-      <span class="hover-up">{{ charNumNoPunc }}</span>
+      {{ paraNum }} / {{ charNumTotal }} / {{ charNumNoPunc }}
     </div>
   </div>
 </template>
