@@ -5,12 +5,6 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import App from '@/App.vue'
-import Home from '@/views/Home.vue'
-import Editor from '@/views/Editor.vue'
-import SignIn from '@/views/SignIn.vue'
-import AddDraft from '@/views/AddDraft.vue'
-
 import { anonKey } from '@/logics/auth'
 
 const routes = [
@@ -25,22 +19,22 @@ const routes = [
   {
     path: '/sign-in',
     name: 'sign-in',
-    component: SignIn
+    component: () => import('@/views/SignIn.vue')
   },
   {
     path: '/home',
     name: 'home',
-    component: Home
+    component: () => import('@/views/Home.vue')
   },
   {
     path: '/editor/:title',
     name: 'editor',
-    component: Editor
+    component: () => import('@/views/Editor.vue')
   },
   {
     path: '/add-draft',
     name: 'add-draft',
-    component: AddDraft
+    component: () => import('@/views/AddDraft.vue')
   }
 ]
 
