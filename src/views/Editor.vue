@@ -51,7 +51,7 @@ const paraNum = computed(
 )
 const charNumTotal = computed(() => content.value.length)
 const charNumNoPunc = computed(() => {
-  const punc = '.,?!;:()[]{}""\'\'$。，？！；：（）【】｛｝—、“”’‘¥'.split('')
+  const punc = '.,?!;:()[]{}"\'$。，？！；：（）【】｛｝—、“”’‘¥ \t\n\r'.split('')
   return content.value.split('').filter((c) => !punc.includes(c)).length
 })
 
