@@ -14,7 +14,6 @@ const title = route.params.title as unknown as string
 const draftsStore = useDraftsStore()
 const draft = draftsStore.getDraft(title)
 const content = ref(draft.content)
-const unsaved = ref(false)
 
 const savingLoading = ref(false)
 const refreshLoading = ref(false)
@@ -26,21 +25,15 @@ const refresh = async () => {
   refreshLoading.value = false
 }
 const save = async () => {
-  if (unsaved.value || !draftsStore.unsavedList.includes(title)) return
+  if (draftsStore.getDraft(title).content === content.value) return
   savingLoading.value = true
   await draftsStore.updateDraftContent(supabase, {
     title: draft.title,
     content: content.value
   })
-  unsaved.value = false
   draftsStore.unsavedList.filter((t) => t != title)
   savingLoading.value = false
 }
-watch(content, () => {
-  if (unsaved.value) return
-  draftsStore.unsavedList.push(title)
-  unsaved.value = true
-})
 
 const editingTitle = ref(false)
 const updatingTitle = ref(false)
