@@ -3,7 +3,7 @@ import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router'
 import { useDraftsStore } from '@/logics/drafts'
 import { genClient } from '@/logics/auth'
 import type { Draft } from '@/logics/drafts'
-import { ref, computed } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 
 const supabase = genClient()
 
@@ -25,11 +25,6 @@ const refresh = async () => {
   content.value = draftsStore.getDraft(title).content
   refreshLoading.value = false
 }
-const unsave = () => {
-  if (unsaved.value) return
-  draftsStore.unsavedList.push(title)
-  unsaved.value = true
-}
 const save = async () => {
   if (unsaved.value || !draftsStore.unsavedList.includes(title)) return
   savingLoading.value = true
@@ -41,6 +36,11 @@ const save = async () => {
   draftsStore.unsavedList.filter((t) => t != title)
   savingLoading.value = false
 }
+watchEffect(() => {
+  if (unsaved.value) return
+  draftsStore.unsavedList.push(title)
+  unsaved.value = true
+})
 
 const editingTitle = ref(false)
 const updatingTitle = ref(false)
@@ -109,11 +109,7 @@ onBeforeRouteLeave(async () => {
         <span class="i-charm:circle-cross"></span>
       </button>
     </div>
-    <textarea
-      v-model="content"
-      class="h-80vh w-full"
-      @input="unsave"
-    ></textarea>
+    <textarea v-model="content" class="h-80vh w-full"></textarea>
     <div class="mx-6px my-10px">
       {{ paraNum }} / {{ charNumTotal }} / {{ charNumNoPunc }}
     </div>

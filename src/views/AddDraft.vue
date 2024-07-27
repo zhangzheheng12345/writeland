@@ -8,9 +8,11 @@ const supabase = genClient()
 const router = useRouter()
 const draftsStore = useDraftsStore()
 const title = ref('')
+const toNewDraftLoading = ref(false)
 
 const submit = () => {
   draftsStore.addDraft(supabase, title.value)
+  toNewDraftLoading.value = true
   router.push(`/editor/${title.value}`)
 }
 </script>
@@ -20,7 +22,10 @@ const submit = () => {
     <input type="text" v-model="title" />
     <button @click="submit" class="flex items-center">
       <span>SUBMIT</span>
-      <span class="i-charm:chevrons-right transition-200 ml-3px"></span>
+      <span
+        class="i-charm:chevrons-right transition-200 ml-3px"
+        :class="toNewDraftLoading ? 'translate-x-4px' : ''"
+      ></span>
     </button>
   </div>
 </template>

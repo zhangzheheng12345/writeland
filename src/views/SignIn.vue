@@ -4,17 +4,16 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const passkey = ref('')
-const passState = ref<'none' | 'pass' | 'wrong'>('none')
 const router = useRouter()
+const toHomeLoading = ref(false)
 
 const submit = async () => {
   const res = await fetch(`/get-anon-key/${passkey.value}`)
   const anon = (await res.json())?.anon as string
-  if (anon === 'Wrong Passkey') passState.value = 'wrong'
+  if (anon === 'Wrong Passkey') alert('WRONG PASSKEY')
   else {
     anonKey.value = anon
-    passState.value = 'pass'
-    // TODO: sleep 300ms
+    toHomeLoading.value = true
     router.push('/home')
   }
 }
@@ -26,7 +25,10 @@ const submit = async () => {
     <input type="password" v-model="passkey" />
     <button @click="submit" class="flex items-center">
       <span>SIGN IN</span>
-      <span class="i-charm:chevrons-right transition-200 ml-3px"></span>
+      <span
+        class="i-charm:chevrons-right transition-200 ml-3px"
+        :class="toHomeLoading ? 'translate-x-4px' : ''"
+      ></span>
     </button>
   </div>
 </template>

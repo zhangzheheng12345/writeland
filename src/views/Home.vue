@@ -12,6 +12,7 @@ const draftsStore = useDraftsStore()
 
 const refreshLoading = ref(false)
 const removeLoading = ref(false)
+const toDraftLoadingIndex = ref(-1)
 const removeConfirmIndex = ref(-1)
 
 const refresh = async () => {
@@ -59,6 +60,7 @@ onMounted(() => draftsStore.refreshDraft(supabase))
         <button
           @click="router.push({ path: '/editor/' + item.title })"
           class="text-my-blue flex hover:decoration-underline"
+          :class="toDraftLoadingIndex === index ? 'animate-bounce' : ''"
         >
           {{ item.title }}
         </button>
