@@ -14,6 +14,7 @@ const title = route.params.title as unknown as string
 const draftsStore = useDraftsStore()
 const draft = draftsStore.getDraft(title)
 const content = ref(draft.content)
+const unsaved = ref(false)
 
 const savingLoading = ref(false)
 const refreshLoading = ref(false)
@@ -24,12 +25,20 @@ const refresh = async () => {
   content.value = draftsStore.getDraft(title).content
   refreshLoading.value = false
 }
+const unsave = () => {
+  if (unsaved.value) return
+  draftsStore.unsavedList.push(title)
+  unsaved.value = true
+}
 const save = async () => {
+  if (unsaved.value || !draftsStore.unsavedList.includes(title)) return
   savingLoading.value = true
   await draftsStore.updateDraftContent(supabase, {
     title: draft.title,
     content: content.value
   })
+  unsaved.value = false
+  draftsStore.unsavedList.filter((t) => t != title)
   savingLoading.value = false
 }
 
@@ -51,7 +60,9 @@ const paraNum = computed(
 )
 const charNumTotal = computed(() => content.value.length)
 const charNumNoPunc = computed(() => {
-  const punc = '.,?!;:()[]{}"\'$。，？！；：（）【】｛｝—、“”’‘¥ \t\n\r'.split('')
+  const punc = '.,?!;:()[]{}"\'$。，？！；：（）【】｛｝—、“”’‘¥ \t\n\r'.split(
+    ''
+  )
   return content.value.split('').filter((c) => !punc.includes(c)).length
 })
 
@@ -98,7 +109,11 @@ onBeforeRouteLeave(async () => {
         <span class="i-charm:circle-cross"></span>
       </button>
     </div>
-    <textarea v-model="content" class="h-80vh w-full"></textarea>
+    <textarea
+      v-model="content"
+      class="h-80vh w-full"
+      @input="unsave"
+    ></textarea>
     <div class="mx-6px my-10px">
       {{ paraNum }} / {{ charNumTotal }} / {{ charNumNoPunc }}
     </div>
