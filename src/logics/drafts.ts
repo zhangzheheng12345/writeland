@@ -10,26 +10,15 @@ export interface Draft {
 
 export const useDraftsStore = defineStore('drafts-store', () => {
   const drafts = useStorage<Draft[]>('drafts', [])
-  const unsavedList = useStorage<string[]>('unsaved-list', [])
 
   return {
     drafts,
-    unsavedList,
     getDraft: (title: string) =>
       drafts.value.find((draft) => draft?.title === title) || {
         title: '404 NOT FOUND',
         content: ''
       },
     refreshDraft: async (supabaseClient: SupabaseClient) => {
-      if (unsavedList.value.length !== 0) {
-        await supabaseClient
-          .from(DB_TABLE_NAME)
-          .update(
-            drafts.value.filter((d) => unsavedList.value.includes(d.title))
-          )
-          .in('title', unsavedList.value)
-        unsavedList.value = []
-      }
       const { data, error } = await supabaseClient.from(DB_TABLE_NAME).select()
       if (error != null) {
         alert('REFRESHING FAILED')

@@ -25,13 +25,13 @@ const refresh = async () => {
   refreshLoading.value = false
 }
 const save = async () => {
+  console.log(content.value)
   if (draftsStore.getDraft(title).content === content.value) return
   savingLoading.value = true
   await draftsStore.updateDraftContent(supabase, {
     title: draft.title,
     content: content.value
   })
-  draftsStore.unsavedList.filter((t) => t != title)
   savingLoading.value = false
 }
 
