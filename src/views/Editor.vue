@@ -26,6 +26,7 @@ const refresh = async () => {
 }
 const save = async () => {
   console.log(content.value)
+  console.log(draftsStore.getDraft(title).content)
   if (draftsStore.getDraft(title).content === content.value) return
   savingLoading.value = true
   await draftsStore.updateDraftContent(supabase, {
