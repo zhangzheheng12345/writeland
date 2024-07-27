@@ -3,7 +3,7 @@ import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router'
 import { useDraftsStore } from '@/logics/drafts'
 import { genClient } from '@/logics/auth'
 import type { Draft } from '@/logics/drafts'
-import { ref, computed, watchEffect } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 const supabase = genClient()
 
@@ -36,7 +36,7 @@ const save = async () => {
   draftsStore.unsavedList.filter((t) => t != title)
   savingLoading.value = false
 }
-watchEffect(() => {
+watch(content, () => {
   if (unsaved.value) return
   draftsStore.unsavedList.push(title)
   unsaved.value = true
