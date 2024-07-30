@@ -8,7 +8,7 @@ const router = useRouter()
 const toHomeLoading = ref(false)
 
 const submit = async () => {
-  const res = await(await fetch(`/get-anon-key/${passkey.value}`)).json()
+  const res = await (await fetch(`/get-anon-key/${passkey.value}`)).json()
   const anon = res?.anon as string
   const url = res?.url as string
   if (anon === 'Wrong Passkey') alert('WRONG PASSKEY')
