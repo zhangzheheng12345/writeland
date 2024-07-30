@@ -1,6 +1,6 @@
 import { useStorage } from '@vueuse/core'
 import { createClient } from '@supabase/supabase-js'
-import { DB_URL } from '@/config'
 
+export const dbUrl = useStorage<string>('db-url', '')
 export const anonKey = useStorage<string>('anon-key', '')
-export const genClient = () => createClient(DB_URL, anonKey.value)
+export const genClient = () => createClient(dbUrl.value, anonKey.value)

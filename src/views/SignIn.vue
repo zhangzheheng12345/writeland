@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { anonKey } from '@/logics/auth'
+import { anonKey, dbUrl } from '@/logics/auth'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -8,11 +8,13 @@ const router = useRouter()
 const toHomeLoading = ref(false)
 
 const submit = async () => {
-  const res = await fetch(`/get-anon-key/${passkey.value}`)
-  const anon = (await res.json())?.anon as string
+  const res = await(await fetch(`/get-anon-key/${passkey.value}`)).json()
+  const anon = res?.anon as string
+  const url = res?.url as string
   if (anon === 'Wrong Passkey') alert('WRONG PASSKEY')
   else {
     anonKey.value = anon
+    dbUrl.value = url
     toHomeLoading.value = true
     router.push('/home')
   }
