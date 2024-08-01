@@ -11,7 +11,8 @@ const submit = async () => {
   const res = await (await fetch(`/get-anon-key/${passkey.value}`)).json()
   const anon = res?.anon as string
   const url = res?.url as string
-  if (anon === 'Wrong Passkey') alert('WRONG PASSKEY')
+  const status = res?.status as string
+  if (status === 'WRONG PASSKEY') alert(status)
   else {
     anonKey.value = anon
     dbUrl.value = url

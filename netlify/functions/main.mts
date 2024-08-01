@@ -12,9 +12,12 @@ export default async (req: Request, ctx: Context) => {
   if(passkey === correctPasskey)
     return new Response(JSON.stringify({
       anon: anonKey,
-      url: dbUrl
+      url: dbUrl,
+      status: 'SUCCESS'
     }))
   return new Response(JSON.stringify({
-    anon: 'Wrong Passkey'
+    anon: '',
+    url: '',
+    status: 'WRONG PASSKEY'
   }))
 }
