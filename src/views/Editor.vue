@@ -101,10 +101,10 @@ onBeforeRouteLeave(async () => {
         <span class="i-charm:circle-cross"></span>
       </button>
     </div>
-    <textarea v-model="content" class="h-80vh w-full"></textarea>
-    <div class="mx-6px my-10px">
+    <div class="mx-6px my-7px">
       {{ paraNum }} / {{ charNumTotal }} / {{ charNumNoPunc }}
     </div>
+    <textarea v-model="content" class="h-76vh w-full"></textarea>
   </div>
 </template>
 
