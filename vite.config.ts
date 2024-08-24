@@ -11,6 +11,7 @@ export default defineConfig({
     Unocss({
       theme: {
         colors: {
+          soDeepGray: 'var(--so-deep-gray)',
           deepGray: 'var(--deep-gary)',
           midGray: 'var(--mid-gary)',
           lightGray: 'var(--light-gary)',

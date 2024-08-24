@@ -3,6 +3,7 @@
   --mono-basic: 'Noto Sans', 'PingFang SC', 'Hiragino Sans GB',
     'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
   /* Colors */
+  --so-deep-gray: #2d2d2f;
   --deep-gray: #3f3f3f;
   --mid-gray: #656565;
   --light-gray: #efefef;
@@ -38,6 +39,7 @@ h6 {
   scroll-behavior: smooth;
   outline: 0px !important;
   list-style-type: none;
+  caret-color: var(--so-deep-gray);
 }
 
 body {
