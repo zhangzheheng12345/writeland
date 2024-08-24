@@ -10,10 +10,18 @@ const supabase = genClient()
 const route = useRoute()
 const router = useRouter()
 const title = route.params.title as unknown as string
-
 const draftsStore = useDraftsStore()
 const draft = draftsStore.getDraft(title)
-const content = ref(draft.content)
+// text is to be shown in the textarea:
+//   # TITLE
+//   // empty line
+//   <MAIN CONTENT>
+const genText = (c_: string) => `# ${title}\n\n${c_}`
+const text = ref(genText(draft.content))
+// content is the main content of the draft
+const content = computed(
+  () => text.value.split('\n').slice(1).join('\n').trim() + '\n'
+)
 
 const savingLoading = ref(false)
 const refreshLoading = ref(false)
@@ -21,10 +29,11 @@ const refreshLoading = ref(false)
 const refresh = async () => {
   refreshLoading.value = true
   await draftsStore.refreshDraft(supabase)
-  content.value = draftsStore.getDraft(title).content
+  text.value = genText(draftsStore.getDraft(title).content)
   refreshLoading.value = false
 }
 const save = async () => {
+  updateTitle()
   if (draftsStore.getDraft(title).content === content.value) return
   savingLoading.value = true
   await draftsStore.updateDraftContent(supabase, {
@@ -33,18 +42,12 @@ const save = async () => {
   })
   savingLoading.value = false
 }
-
-const editingTitle = ref(false)
-const updatingTitle = ref(false)
-const newTitle = ref(draft.title)
 const updateTitle = async () => {
-  updatingTitle.value = true
-  await draftsStore.updateDraftTitle(supabase, draft.title, newTitle.value)
+  let newTitle = text.value.split('\n')[0]
+  if (newTitle[0] === '#') newTitle = newTitle.slice(1).trim()
+  if (newTitle === title) return
+  await draftsStore.updateDraftTitle(supabase, draft.title, newTitle)
   router.push(`/editor/${newTitle}`)
-}
-const cancelUpdatingTitle = () => {
-  editingTitle.value = false
-  newTitle.value = draft.title
 }
 
 const paraNum = computed(
@@ -59,7 +62,7 @@ const charNumNoPunc = computed(() => {
 })
 
 onBeforeRouteLeave(async () => {
-  if (draft.title === newTitle.value) await save()
+  await save()
 })
 </script>
 
@@ -82,29 +85,10 @@ onBeforeRouteLeave(async () => {
         ></span>
       </button>
     </div>
-    <button
-      class="text-1.65em text-left p-0 mb-13px mt-10px ml-8px hover-up"
-      v-if="!editingTitle"
-      @dblclick="editingTitle = true"
-    >
-      # {{ title }}
-    </button>
-    <div class="flex items-center w-full" v-else>
-      <input
-        type="text"
-        v-model="newTitle"
-        class="py-5px px-7px text-1.4em w-75%"
-        :class="updatingTitle ? 'animate-bounce' : ''"
-        @keyup.enter="updateTitle"
-      />
-      <button class="flex hover-up" @click="cancelUpdatingTitle">
-        <span class="i-charm:circle-cross"></span>
-      </button>
-    </div>
     <div class="mx-6px my-7px">
       {{ paraNum }} / {{ charNumTotal }} / {{ charNumNoPunc }}
     </div>
-    <textarea v-model="content" class="h-76vh w-full"></textarea>
+    <textarea v-model="text" class="h-76vh w-full"></textarea>
   </div>
 </template>
 
