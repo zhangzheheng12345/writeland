@@ -33,15 +33,25 @@ const refresh = async () => {
 }
 const save = async () => {
   let newTitle = text.value.split('\n')[0]
-  if (newTitle[0] === '#') newTitle = newTitle.slice(1).trim()
-  if (draftsStore.getDraft(title).content === content.value && newTitle === title) return
+  if (newTitle[0] === '#') newTitle = newTitle.slice(1)
+  newTitle = newTitle.trim()
+  if (
+    draftsStore.getDraft(title).content === content.value &&
+    newTitle === title &&
+    draftsStore.drafts.findIndex((d) => d.title === title) !== -1
+  )
+    return
   savingLoading.value = true
-  await draftsStore.updateDraft(supabase, {
-    title: newTitle,
-    content: content.value
-  }, title)
+  await draftsStore.updateDraft(
+    supabase,
+    {
+      title: newTitle,
+      content: content.value
+    },
+    title
+  )
   savingLoading.value = false
-  if(newTitle !== title) router.push(`/editor/${newTitle}`)
+  if (newTitle !== title) router.push(`/editor/${newTitle}`)
 }
 
 const paraNum = computed(
@@ -55,9 +65,7 @@ const charNumNoPunc = computed(() => {
   return content.value.split('').filter((c) => !punc.includes(c)).length
 })
 
-onBeforeRouteLeave(async () => {
-  await save()
-})
+onBeforeRouteLeave(save)
 </script>
 
 <template>
