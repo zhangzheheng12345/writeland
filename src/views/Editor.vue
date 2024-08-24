@@ -11,13 +11,12 @@ const route = useRoute()
 const router = useRouter()
 const title = route.params.title as unknown as string
 const draftsStore = useDraftsStore()
-const draft = draftsStore.getDraft(title)
 // text is to be shown in the textarea:
 //   # TITLE
 //   // empty line
 //   <MAIN CONTENT>
 const genText = (c_: string) => `# ${title}\n\n${c_}`
-const text = ref(genText(draft.content))
+const text = ref(genText(draftsStore.getDraft(title).content))
 // content is the main content of the draft
 const content = computed(
   () => text.value.split('\n').slice(1).join('\n').trim() + '\n'
@@ -33,21 +32,16 @@ const refresh = async () => {
   refreshLoading.value = false
 }
 const save = async () => {
-  updateTitle()
-  if (draftsStore.getDraft(title).content === content.value) return
-  savingLoading.value = true
-  await draftsStore.updateDraftContent(supabase, {
-    title: draft.title,
-    content: content.value
-  })
-  savingLoading.value = false
-}
-const updateTitle = async () => {
   let newTitle = text.value.split('\n')[0]
   if (newTitle[0] === '#') newTitle = newTitle.slice(1).trim()
-  if (newTitle === title) return
-  await draftsStore.updateDraftTitle(supabase, draft.title, newTitle)
-  router.push(`/editor/${newTitle}`)
+  if (draftsStore.getDraft(title).content === content.value && newTitle === title) return
+  savingLoading.value = true
+  await draftsStore.updateDraft(supabase, {
+    title: newTitle,
+    content: content.value
+  }, title)
+  savingLoading.value = false
+  if(newTitle !== title) router.push(`/editor/${newTitle}`)
 }
 
 const paraNum = computed(

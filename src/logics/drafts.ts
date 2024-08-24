@@ -42,38 +42,22 @@ export const useDraftsStore = defineStore('drafts-store', () => {
         .eq('title', title)
       if (error != null) alert('DELETING FAILED')
     },
-    updateDraftContent: async (
+    updateDraft: async (
       supabaseClient: SupabaseClient,
-      draft: Draft
+      draft: Draft,
+      originalTitle: string
     ) => {
-      const index = drafts.value.findIndex((d) => d.title === draft.title)
+      const index = drafts.value.findIndex((d) => d.title === originalTitle)
       if (index === -1) {
-        alert('UPDATING CONTENT FAILED')
+        alert('UPDATING FAILED')
         return
       }
       drafts.value[index] = draft
       const { error } = await supabaseClient
         .from(DB_TABLE_NAME)
-        .update({ content: draft.content })
-        .eq('title', draft.title)
-      if (error != null) alert('UPDATING CONTENT FAILED')
-    },
-    updateDraftTitle: async (
-      supabaseClient: SupabaseClient,
-      orginalTitle: string,
-      newTitle: string
-    ) => {
-      const index = drafts.value.findIndex((d) => d.title === orginalTitle)
-      if (index === -1) {
-        alert('UPDATING TITLE FAILED')
-        return
-      }
-      drafts.value[index].title = newTitle
-      const { error } = await supabaseClient
-        .from(DB_TABLE_NAME)
-        .update({ title: newTitle })
-        .eq('title', orginalTitle)
-      if (error != null) alert('UPDATING TITLE FAILED')
+        .update(draft)
+        .eq('title', originalTitle)
+      if (error != null) alert('UPDATING FAILED')
     }
   }
 })
