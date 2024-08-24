@@ -38,7 +38,7 @@ const save = async (leaving: boolean) => {
   if (
     draftsStore.getDraft(title).content === content.value &&
     newTitle === title &&
-    draftsStore.drafts.findIndex((d) => d.title === title) !== -1
+    draftsStore.drafts.findIndex((d) => d.title === title) === -1
   )
     return
   savingLoading.value = true
