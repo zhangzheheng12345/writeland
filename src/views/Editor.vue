@@ -31,7 +31,7 @@ const refresh = async () => {
   text.value = genText(draftsStore.getDraft(title).content)
   refreshLoading.value = false
 }
-const save = async () => {
+const save = async (leaving: boolean) => {
   let newTitle = text.value.split('\n')[0]
   if (newTitle[0] === '#') newTitle = newTitle.slice(1)
   newTitle = newTitle.trim()
@@ -51,7 +51,7 @@ const save = async () => {
     title
   )
   savingLoading.value = false
-  if (newTitle !== title) router.push(`/editor/${newTitle}`)
+  if (!leaving && newTitle !== title) router.push(`/editor/${newTitle}`)
 }
 
 const paraNum = computed(
@@ -65,7 +65,7 @@ const charNumNoPunc = computed(() => {
   return content.value.split('').filter((c) => !punc.includes(c)).length
 })
 
-onBeforeRouteLeave(save)
+onBeforeRouteLeave(save(true))
 </script>
 
 <template>
@@ -74,7 +74,7 @@ onBeforeRouteLeave(save)
       <button @click="router.push('/home')" class="flex hover-up">
         <span class="i-charm:cards"></span>
       </button>
-      <button @click="save" class="flex hover-up">
+      <button @click="save(false)" class="flex hover-up">
         <span
           class="i-charm:floppy-disk"
           :class="savingLoading ? 'animate-bounce' : ''"
