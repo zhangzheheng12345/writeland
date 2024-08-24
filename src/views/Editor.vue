@@ -65,7 +65,7 @@ const charNumNoPunc = computed(() => {
   return content.value.split('').filter((c) => !punc.includes(c)).length
 })
 
-onBeforeRouteLeave(save(true))
+onBeforeRouteLeave(async () => await save(true))
 </script>
 
 <template>
