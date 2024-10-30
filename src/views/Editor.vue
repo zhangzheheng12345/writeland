@@ -87,10 +87,9 @@ onBeforeRouteLeave(async () => await save(true))
           :class="refreshLoading ? 'animate-spin' : ''"
         ></span>
       </button>
-      <button @click="refresh" class="flex hover-up">
+      <button @click="copy" class="flex hover-up">
         <span
           class="i-charm:copy"
-          :class="refreshLoading ? 'animate-spin' : ''"
         ></span>
       </button>
     </div>
