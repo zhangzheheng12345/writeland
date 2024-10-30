@@ -19,6 +19,7 @@ const submit = () => {
 
 <template>
   <div class="flex flex-col items-center justify-center h-screen">
+    <h1 class="text-1.75em m-15px">ADD DRAFT</h1>
     <input type="text" v-model="title" />
     <button @click="submit" class="flex items-center">
       <span>SUBMIT</span>

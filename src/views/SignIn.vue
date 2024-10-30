@@ -25,7 +25,7 @@ const submit = async () => {
 <template>
   <div class="flex flex-col items-center justify-center h-screen">
     <h1 class="text-1.75em m-15px">WRITELAND</h1>
-    <input type="password" v-model="passkey" />
+    <input type="password" v-model="passkey" @keyup.enter="submit" />
     <button @click="submit" class="flex items-center">
       <span>SIGN IN</span>
       <span
