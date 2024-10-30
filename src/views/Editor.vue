@@ -53,6 +53,7 @@ const save = async (leaving: boolean) => {
   savingLoading.value = false
   if (!leaving && newTitle !== title) router.push(`/editor/${newTitle}`)
 }
+const copy = () => navigator.clipboard.write(text.value.trim() + '🏝️')
 
 const paraNum = computed(
   () => content.value.split('\n').filter((p) => p.length > 0).length
@@ -83,6 +84,12 @@ onBeforeRouteLeave(async () => await save(true))
       <button @click="refresh" class="flex hover-up">
         <span
           class="i-charm:refresh"
+          :class="refreshLoading ? 'animate-spin' : ''"
+        ></span>
+      </button>
+      <button @click="refresh" class="flex hover-up">
+        <span
+          class="i-charm:copy"
           :class="refreshLoading ? 'animate-spin' : ''"
         ></span>
       </button>
